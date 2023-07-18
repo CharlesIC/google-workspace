@@ -4,9 +4,17 @@
     "target": "ES2019",
     "strict": true,
     "noEmit": true,
-    "types": ["google-apps-script"],
-    "experimentalDecorators": true
+    "module": "None",
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+    "experimentalDecorators": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowUnreachableCode": false,
+    "noUnusedLocals": true,
+    "types": ["google-apps-script"]
   },
+  "files": [],
   "references": [
     {
       "path": "gmail-analyser"

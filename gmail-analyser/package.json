@@ -1,7 +1,9 @@
 {
   "name": "gmail-analyser",
   "description": "Analyse emails in a Gmail inbox",
-  "dependencies": {
-    "@types/google-apps-script": "^1.0.65"
+  "scripts": {
+    "test": "jest --silent",
+    "push": "clasp push",
+    "run": "clasp run"
   }
 }

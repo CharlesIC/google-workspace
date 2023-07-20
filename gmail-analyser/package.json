@@ -4,6 +4,7 @@
   "scripts": {
     "test": "jest --silent",
     "push": "clasp push",
-    "run": "clasp run"
+    "run": "clasp run",
+    "logs": "../scripts/watch-logs.sh"
   }
 }

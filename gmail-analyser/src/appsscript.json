@@ -1,7 +1,12 @@
 {
   "timeZone": "Europe/London",
-  "dependencies": {
+  "executionApi": {
+    "access": "MYSELF"
   },
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/script.scriptapp"
+  ],
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8"
 }

@@ -12,12 +12,18 @@
     "forceConsistentCasingInFileNames": true,
     "allowUnreachableCode": false,
     "noUnusedLocals": false,
-    "types": ["google-apps-script"]
+    "types": ["google-apps-script"],
+    "paths": {
+      "lib/*": ["projects/library/src/*"]
+    }
   },
   "files": [],
   "references": [
     {
-      "path": "gmail-analyser"
+      "path": "projects/library"
+    },
+    {
+      "path": "projects/gmail-analyser"
     }
   ]
 }

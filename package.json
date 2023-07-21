@@ -2,9 +2,7 @@
   "name": "google-workspace-apps",
   "description": "Google Workspace add-ons and Apps Script automations",
   "repository": "https://github.com/CharlesIC/google-workspace",
-  "workspaces": [
-    "gmail-analyser"
-  ],
+  "workspaces": ["projects/*"],
   "scripts": {
     "test": "jest --silent"
   },

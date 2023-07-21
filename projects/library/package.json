@@ -1,0 +1,10 @@
+{
+  "name": "google-apps-script-library",
+  "description": "Shared utilities",
+  "scripts": {
+    "test": "jest --silent",
+    "push": "clasp push",
+    "run": "clasp run",
+    "logs": "../../scripts/watch-logs.sh"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "timeZone": "Europe/London",
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
+  "executionApi": {
+    "access": "MYSELF"
+  },
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/script.scriptapp"
+  ],
+  "dependencies": {
+    "libraries": [
+      {
+        "libraryId": "1Xtcmf8wEJAV7zImHjEsbFBbQsuJB5lJ2tQI1irvpnORAYJNj256nIha2",
+        "developmentMode": true,
+        "userSymbol": "Lib",
+        "version": "0"
+      }
+    ]
+  }
+}

@@ -35,17 +35,21 @@ export namespace BatchTasks {
             runBatchTask(this);
             return this;
         }
+
+        stop() {
+            deleteExecution(this);
+        }
     }
 
     function initialiseExecution<State extends StateRecord>(task: LongRunningTask<State>, taskRunner: BatchTaskRunner<State>) {
         const execution = readExecution(task);
 
         if (execution) {
-            throw new Error(`Execution already in progress for task ${taskRunner.name}`);
+            throw new Error(`Execution already in progress for task ${task.name}`);
         }
 
         writeExecution(task, {state: task.initialiseState(), handler: taskRunner.name, batches: 0});
-        Logger.log(`:: Initialised execution for task ${taskRunner.name}`);
+        Logger.log(`:: Initialised execution for task ${task.name}`);
 
         task.run();
     }
@@ -59,7 +63,7 @@ export namespace BatchTasks {
         }
 
         while (!task.completed && canProcessNextBatch(startMillis, execution.batches)) {
-            Logger.log(`:: Running batch ${++execution.batches} of task ${task.name}...`);
+            Logger.log(`:: Running batch ${++execution.batches} of task ${task.name}`);
             task.processNextBatch(execution.state);
             Logger.log(`:: ${getRemainingTime(startMillis)} remaining`)
         }

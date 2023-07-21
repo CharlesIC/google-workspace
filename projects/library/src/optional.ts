@@ -1,4 +1,4 @@
-export namespace Utils {
+export namespace Optional {
     export function nonNull<Type>(value: Type | undefined): NonNullable<Type>;
     export function nonNull<Type, Key extends keyof Type>(object: Type, property: Key): NonNullable<Type[Key]>;
     export function nonNull<Type, Key extends keyof Type>(object: Type, ...properties: Key[]): NonNullable<Pick<Type, Key>>;

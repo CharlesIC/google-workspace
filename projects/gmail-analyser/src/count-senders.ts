@@ -1,27 +1,24 @@
-import {BatchTasks} from "./batch-tasks";
+import * as Lib from "lib/batch-tasks";
 
 const MAX_RANGE = 500;
+const MAX_THREADS = 20;
 
-namespace CountSenders {
+namespace AnalyseEmail {
     type State = { senders: Record<string, number>, count: number };
 
-    export class Task extends BatchTasks.LongRunningTask<State> {
+    export class CountSenders extends Lib.BatchTasks.LongRunningTask<State> {
         initialiseState(): State {
             return {senders: {}, count: 0};
         }
 
-        protected processBatch(state: State): BatchTasks.IsProcessingComplete {
+        protected processBatch(state: State): Lib.BatchTasks.IsProcessingComplete {
             return countSendersBatch(state);
         }
     }
 
     function countSendersBatch(state: State): boolean {
-        const threads = GmailApp.getInboxThreads(state.count, MAX_RANGE);
-
-        if (!threads.length) {
-            processResults(state.senders);
-            return true;
-        }
+        const range = Math.min(MAX_THREADS - state.count, MAX_RANGE);
+        const threads = GmailApp.getInboxThreads(state.count, range);
 
         const senders = state.senders;
         threads.filter(thread => thread.isUnread())
@@ -33,6 +30,12 @@ namespace CountSenders {
             })
 
         Logger.log(`Processed ${state.count += threads.length} threads`)
+
+        if (!threads?.length || state.count == MAX_THREADS) {
+            processResults(state.senders);
+            return true;
+        }
+
         return false;
     }
 
@@ -46,7 +49,7 @@ namespace CountSenders {
     }
 }
 
-const countSendersTask = new CountSenders.Task();
+const countSendersTask = new AnalyseEmail.CountSenders();
 
 function countSenders() {
     return countSendersTask.run();
@@ -54,4 +57,8 @@ function countSenders() {
 
 function initialiseCountSendersTask() {
     countSendersTask.initialise(countSenders);
+}
+
+function stopCountSendersTask() {
+    countSendersTask.stop();
 }

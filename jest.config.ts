@@ -1,5 +1,5 @@
 import {Config} from "jest";
 
 export default {
-    projects: ["gmail-analyser/jest.config.ts"]
+    projects: ["projects/*/jest.config.ts"]
 } satisfies Config;

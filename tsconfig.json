@@ -11,19 +11,12 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
     "allowUnreachableCode": false,
+    "noUnusedParameters": true,
     "noUnusedLocals": false,
     "types": ["google-apps-script"],
     "paths": {
       "lib/*": ["projects/library/src/*"]
     }
   },
-  "files": [],
-  "references": [
-    {
-      "path": "projects/library"
-    },
-    {
-      "path": "projects/gmail-analyser"
-    }
-  ]
+  "include": ["projects/**/src/**/*"]
 }

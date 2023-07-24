@@ -5,6 +5,7 @@
     "test": "jest --silent",
     "push": "clasp push",
     "run": "clasp run",
-    "logs": "../../scripts/watch-logs.sh"
+    "logs": "../../scripts/watch-logs.sh",
+    "login": "clasp login --creds ../../creds.json"
   }
 }

@@ -1,9 +1,9 @@
-import * as Lib from "lib/batch-tasks";
-
-const MAX_RANGE = 500;
-const MAX_THREADS = 20;
+import {Lib} from "lib/types/all";
 
 namespace AnalyseEmail {
+    const MAX_RANGE = 500;
+    const MAX_THREADS = 20;
+
     type State = { senders: Record<string, number>, count: number };
 
     export class CountSenders extends Lib.BatchTasks.LongRunningTask<State> {
@@ -17,7 +17,7 @@ namespace AnalyseEmail {
     }
 
     function countSendersBatch(state: State): boolean {
-        const range = Math.min(MAX_THREADS - state.count, MAX_RANGE);
+        const range = MAX_THREADS ? Math.min(MAX_THREADS - state.count, MAX_RANGE) : MAX_RANGE;
         const threads = GmailApp.getInboxThreads(state.count, range);
 
         const senders = state.senders;
@@ -31,7 +31,7 @@ namespace AnalyseEmail {
 
         Logger.log(`Processed ${state.count += threads.length} threads`)
 
-        if (!threads?.length || state.count == MAX_THREADS) {
+        if (!threads?.length || state.count === MAX_THREADS) {
             processResults(state.senders);
             return true;
         }
@@ -40,12 +40,22 @@ namespace AnalyseEmail {
     }
 
     function processResults(senders: Record<string, number>) {
-        Logger.log(`Total senders: ${Object.getOwnPropertyNames(senders).length}`);
-        Logger.log("Top senders:")
-        Object.entries(senders)
-            .sort((a, b) => a[1] < b[1] ? 1 : -1)
-            .slice(0, 20)
-            .forEach(sender => Logger.log(`\t${sender[1]}\t${sender[0]}`));
+        const entries = Object.entries(senders).map(entry => [entry[1], entry[0]]);
+        getResultsRange(entries.length).setValues(entries).sort({column: 1, ascending: false});
+        Logger.log(`Total senders: ${entries.length}`);
+    }
+
+    function getResultsRange(numRows: number) {
+        const range = Lib.Spreadsheets.getEmptyRange("A:B", "Senders",
+            Lib.Spreadsheets.getSpreadsheetID(PropertiesService.getUserProperties(), "SHEET_ID", "Gmail Analyser"),
+            SpreadsheetApp.Dimension.COLUMNS);
+
+        Lib.Spreadsheets.getCells(range, 0, 0, 1).merge()
+            .setValue(new Date().toLocaleString("en-GB")).setNumberFormat("dd-MM-yyyy hh:mm")
+            .setFontWeight("bold").setHorizontalAlignment("left");
+
+        Lib.Spreadsheets.getCells(range, 1, 0, 1).setValues([["Count", "Sender"]]).setFontWeight("bold");
+        return Lib.Spreadsheets.getCells(range, 2, 0, numRows);
     }
 }
 

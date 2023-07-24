@@ -1,8 +1,8 @@
-const MAX_EXECUTION_MILLIS = 6 * 60 * 1000;
-const TRIGGER_DELAY_MILLIS = 60 * 1000;
-const CACHE_EXPIRATION_SECONDS = 5 * 60;
-
 export namespace BatchTasks {
+    const MAX_EXECUTION_MILLIS = 6 * 60 * 1000;
+    const TRIGGER_DELAY_MILLIS = 60 * 1000;
+    const CACHE_EXPIRATION_SECONDS = 5 * 60;
+
     export type IsProcessingComplete = boolean;
     type StateRecord = Record<any, any>;
     type BatchTaskRunner<State extends StateRecord> = () => LongRunningTask<State>;

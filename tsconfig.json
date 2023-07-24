@@ -11,7 +11,7 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
     "allowUnreachableCode": false,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "noUnusedLocals": false,
     "types": ["google-apps-script"],
     "paths": {

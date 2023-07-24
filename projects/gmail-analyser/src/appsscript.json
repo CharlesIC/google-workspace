@@ -18,6 +18,13 @@
         "userSymbol": "Lib",
         "version": "0"
       }
+    ],
+    "enabledAdvancedServices": [
+      {
+        "userSymbol": "Gmail",
+        "serviceId": "gmail",
+        "version": "v1"
+      }
     ]
   }
 }

@@ -112,10 +112,10 @@ export namespace BatchTasks {
     }
 
     function getRemainingTime(startMillis: number) {
-        const remainingSeconds = (startMillis + MAX_EXECUTION_MILLIS - Date.now()) / 1000;
+        const remainingSeconds = (MAX_EXECUTION_MILLIS + startMillis - Date.now()) / 1000;
         const minutes = remainingSeconds / 60;
         const seconds = remainingSeconds % 60;
-        return `${minutes.toFixed()}m ${seconds.toFixed()}s`
+        return `${Math.floor(minutes)}m ${seconds.toFixed()}s`
     }
 
     function canProcessNextBatch(startMillis: number, processedBatches: number) {

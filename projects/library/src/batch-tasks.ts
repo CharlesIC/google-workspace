@@ -4,7 +4,7 @@ export namespace BatchTasks {
     const CACHE_EXPIRATION_SECONDS = 5 * 60;
 
     export type IsProcessingComplete = boolean;
-    type StateRecord = Record<any, any>;
+    type StateRecord = Record<string, unknown>;
     type BatchTaskRunner<State extends StateRecord> = () => LongRunningTask<State>;
     type Execution<State> = { state: State, handler: string, batches: number, triggerId?: string };
 

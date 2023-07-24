@@ -15,7 +15,7 @@
     "noUnusedLocals": false,
     "types": ["google-apps-script"],
     "paths": {
-      "lib/*": ["projects/library/src/*"]
+      "lib/*": ["./projects/library/src/*"]
     }
   },
   "include": ["projects/**/src/**/*"]
